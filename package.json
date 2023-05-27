@@ -1,0 +1,32 @@
+{
+  "name": "aquamet-server",
+  "version": "1.0.0",
+  "description": "This is a property of aquamet, developed by codewithkevin!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "server",
+    "backend",
+    "node.js",
+    "mongoose",
+    "express",
+    "mongodb"
+  ],
+  "author": "codewithkevin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "joi": "^17.9.2",
+    "joi-objectid": "^4.0.2",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.1",
+    "nodemon": "^2.0.22",
+    "winston-mongodb": "^5.1.1"
+  }
+}
