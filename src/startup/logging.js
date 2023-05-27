@@ -17,16 +17,16 @@ export default function configureLogging() {
 
   winston.add(
     new winston.transports.MongoDB({
-      level: "info", // Log level
-      db: "mongodb://localhost/vidly", // MongoDB connection URL
+      level: "info",
+      db: process.env.DB_URL,
       options: {
-        useNewUrlParser: true, // Use new URL parser
-        useUnifiedTopology: true, // Use new server discovery and monitoring engine
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
       },
-      collection: "logs", // Collection name for logs
-      capped: true, // Create a capped collection (optional)
-      cappedSize: 10000000, // Size of the capped collection in bytes (optional)
-      cappedMax: 100, // Max number of documents in the capped collection (optional)
+      collection: "logs",
+      capped: true,
+      cappedSize: 10000000,
+      cappedMax: 100,
     })
   );
 }
