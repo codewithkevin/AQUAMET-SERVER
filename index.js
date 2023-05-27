@@ -14,10 +14,12 @@ const logger = winston.createLogger({
 //Imports StartUp
 import connectToMongoDB from "./src/startup/connectDB.js";
 import configureLogging from "./src/startup/logging.js";
+import configureAdminRoutes from "./src/startup/routes/Admin/adminaccount.js";
 
 //Uses StartUp
 connectToMongoDB();
 configureLogging();
+configureAdminRoutes(app);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => logger.info(`Listening on port ${port}...`));
