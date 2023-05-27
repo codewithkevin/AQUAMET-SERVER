@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a property of aquamet, developed by codewithkevin!",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
@@ -18,6 +19,7 @@
   "author": "codewithkevin",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "joi": "^17.9.2",
