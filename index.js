@@ -11,20 +11,14 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-// //Middleware
-// app.use((req, res, next) => {
-//   console.log(req.path, req.method);
-//   next();
-// });
-
 //Imports StartUp
 import connectToMongoDB from "./src/startup/connectDB.js";
-import configureLogging from "./src/startup/logging.js";
 import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
+import configureLogging from "./src/startup/logging.js";
 
 //Uses StartUp
-connectToMongoDB();
 configureLogging();
+connectToMongoDB();
 configureAdminRoutes(app);
 
 const port = process.env.PORT || 4000;

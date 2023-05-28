@@ -2,7 +2,7 @@ import winston from "winston";
 
 export default function (err, req, res, next) {
   // Log the exception
-  winston.error(err.message, err);
+  winston.error(err, err);
 
   // error
   // warn

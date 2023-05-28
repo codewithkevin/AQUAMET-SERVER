@@ -9,7 +9,7 @@ dotenv.config();
 
 const accountEmail = process.env.ADMIN_MAIL2;
 
-const createAdminAccount = asyncMiddleware(async (req, res) => {
+const createAdminAccount = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -33,9 +33,9 @@ const createAdminAccount = asyncMiddleware(async (req, res) => {
   const result = _.pick(user, ["_id", "name", "email", "isAdmin"]);
   const token = user.generateAuthToken();
   res.status(200).send({ result, token });
-});
+};
 
-const loginAdminAccount = asyncMiddleware(async (req, res) => {
+const loginAdminAccount = async (req, res) => {
   const { error } = loginValidate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -48,7 +48,7 @@ const loginAdminAccount = asyncMiddleware(async (req, res) => {
   const token = user.generateAuthToken();
 
   res.status(200).send({ result: token });
-});
+};
 
 function loginValidate(user) {
   const schema = Joi.object({
