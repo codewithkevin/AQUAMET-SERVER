@@ -18,8 +18,8 @@ import configureLogging from "./src/startup/logging.js";
 
 //Uses StartUp
 configureLogging();
-connectToMongoDB();
 configureAdminRoutes(app);
+connectToMongoDB();
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => logger.info(`Listening on port ${port}...`));

@@ -10,30 +10,24 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 30,
-    trim: true,
-    lowercase: true,
+    minlength: 5,
+    maxlength: 50,
   },
   email: {
     type: String,
     required: true,
     minlength: 5,
     maxlength: 255,
-    trim: true,
-    lowercase: true,
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 1020,
-    trim: true,
-    lowercase: true,
+    maxlength: 1024,
   },
   isAdmin: {
     type: Boolean,
-    default: false,
+    default: false, // Add a default value for the field
   },
 });
 
