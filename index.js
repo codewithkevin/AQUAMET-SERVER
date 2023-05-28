@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 //Imports StartUp
 import connectToMongoDB from "./src/startup/connectDB.js";
 import configureLogging from "./src/startup/logging.js";
-import configureAdminRoutes from "./src/startup/routes/Admin/adminaccount.js";
+import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
 
 //Uses StartUp
 connectToMongoDB();
