@@ -75,6 +75,8 @@ const logoutAdminAccount = async (req, res) => {
   res.status(200).send({ message: "Successfully logged out" });
 };
 
+
+
 function loginValidate(user) {
   const schema = Joi.object({
     id: Joi.string().min(5).max(255).required(),

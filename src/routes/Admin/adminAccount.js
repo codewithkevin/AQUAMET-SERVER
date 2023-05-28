@@ -6,6 +6,7 @@ import {
   logoutAdminAccount,
 } from "../../controllers/Admin/adminAccount.js";
 import auth from "../../middleware/auth.js";
+import adminAuth from "../../middleware/admin.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post("/create", createAdminAccount);
 router.post("/login", loginAdminAccount);
 
 //Get Admin Details
-router.get("/me", auth, getAdminDetails);
+router.get("/me", [auth, adminAuth], getAdminDetails);
 
 //Logout Admin Account
 router.post("/logout", logoutAdminAccount);
