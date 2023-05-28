@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import Joi from "joi";
 import passwordComplexity from "joi-password-complexity";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+
+dotenv.config();
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -32,6 +36,14 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
 });
+
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, isAdmin: this.isAdmin, name: this.name },
+    process.env.JWT_PRIVATE_KEY
+  );
+  return token;
+};
 
 const User = mongoose.model("User", userSchema);
 
