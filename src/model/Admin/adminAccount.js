@@ -18,14 +18,12 @@ const userSchema = new mongoose.Schema({
     maxlength: 30,
     trim: true,
     unique: true,
-    default: [process.env.ADMIN_MAIL1, process.env.ADMIN_MAIL2],
     lowercase: true,
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
-
     maxlength: 30,
     trim: true,
     lowercase: true,
@@ -38,7 +36,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-function validateUser(user) {
+function validate(user) {
   const complexityOptions = {
     min: 5,
     max: 255,
@@ -57,4 +55,4 @@ function validateUser(user) {
   return schema.validate(user);
 }
 
-export default User;
+export { User, validate };

@@ -1,4 +1,5 @@
 import express from "express";
+import { createAdminAccount } from "../../controllers/Admin/adminAccount.js";
 
 const router = express.Router();
 
