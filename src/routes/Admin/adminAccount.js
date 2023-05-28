@@ -3,6 +3,7 @@ import {
   createAdminAccount,
   loginAdminAccount,
   getAdminDetails,
+  logoutAdminAccount,
 } from "../../controllers/Admin/adminAccount.js";
 import auth from "../../middleware/auth.js";
 
@@ -16,5 +17,8 @@ router.post("/login", loginAdminAccount);
 
 //Get Admin Details
 router.get("/me", auth, getAdminDetails);
+
+//Logout Admin Account
+router.post("/logout", logoutAdminAccount);
 
 export default router;

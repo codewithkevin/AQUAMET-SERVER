@@ -8,6 +8,7 @@ import Joi from "joi";
 dotenv.config();
 
 const accountEmail = process.env.ADMIN_MAIL2;
+const revokedTokens = [];
 
 const createAdminAccount = async (req, res) => {
   const { error } = validate(req.body);
@@ -45,8 +46,8 @@ const loginAdminAccount = async (req, res) => {
   const { error } = loginValidate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Invalid email or password");
+  let user = await User.findById(req.body.id);
+  if (!user) return res.status(400).send("Invalid ID");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid password");
@@ -62,13 +63,30 @@ const getAdminDetails = async (req, res) => {
   res.send(user);
 };
 
+const logoutAdminAccount = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (revokedTokens.includes(token)) {
+    return res.status(401).send("Token has already been revoked");
+  }
+
+  revokedTokens.push(token);
+
+  res.status(200).send({ message: "Successfully logged out" });
+};
+
 function loginValidate(user) {
   const schema = Joi.object({
-    email: Joi.string().min(5).max(255).required().email(),
+    id: Joi.string().min(5).max(255).required(),
     password: Joi.string().min(5).max(255).required(),
   });
 
   return schema.validate(user);
 }
 
-export { createAdminAccount, loginAdminAccount, getAdminDetails };
+export {
+  createAdminAccount,
+  loginAdminAccount,
+  getAdminDetails,
+  logoutAdminAccount,
+};
