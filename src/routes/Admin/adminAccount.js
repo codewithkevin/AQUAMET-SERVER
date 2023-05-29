@@ -4,6 +4,8 @@ import {
   loginAdminAccount,
   getAdminDetails,
   logoutAdminAccount,
+  getAdminAccounts,
+  updateAdminAccount,
 } from "../../controllers/Admin/adminAccount.js";
 import auth from "../../middleware/auth.js";
 import adminAuth from "../../middleware/admin.js";
@@ -20,6 +22,12 @@ router.post("/login", loginAdminAccount);
 router.get("/me", [auth, adminAuth], getAdminDetails);
 
 //Logout Admin Account
-router.post("/logout", logoutAdminAccount);
+router.post("/logout", [auth, adminAuth], logoutAdminAccount);
+
+//Get all Admin Account
+router.get("/adminaccounts", [auth, adminAuth], getAdminAccounts);
+
+//Update Admin Account
+router.put("/update/:id", [auth, adminAuth], updateAdminAccount);
 
 export default router;
