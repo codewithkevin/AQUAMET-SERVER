@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import { validate, User } from "../../model/Admin/adminAccount.js";
+import {
+  validate,
+  User,
+  validateUpdate,
+} from "../../model/Admin/adminAccount.js";
 import asyncMiddleware from "../../middleware/asyncMiddleware.js";
 import _ from "lodash";
 import dotenv from "dotenv";
@@ -75,6 +79,27 @@ const logoutAdminAccount = async (req, res) => {
   res.status(200).send({ message: "Successfully logged out" });
 };
 
+const getAdminAccounts = async (req, res) => {
+  const users = await User.find({}).select("-password").sort("name");
+  res.send(users);
+};
+
+const updateAdminAccount = async (req, res) => {
+  const { error } = validateUpdate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { name: req.body.name },
+    { new: true }
+  );
+
+  if (!user)
+    return res.status(404).send("Usse ID not found. Cannot update user");
+
+  res.send(user);
+};
+
 function loginValidate(user) {
   const schema = Joi.object({
     id: Joi.string().min(5).max(255).required(),
@@ -89,4 +114,6 @@ export {
   loginAdminAccount,
   getAdminDetails,
   logoutAdminAccount,
+  getAdminAccounts,
+  updateAdminAccount,
 };

@@ -60,4 +60,12 @@ function validate(user) {
   return schema.validate(user);
 }
 
-export { User, validate };
+function validateUpdate(user) {
+  const schema = Joi.object({
+    name: Joi.string().min(5).max(50).required(),
+  });
+
+  return schema.validate(user);
+}
+
+export { User, validate, validateUpdate };
