@@ -8,6 +8,8 @@ import asyncMiddleware from "../../middleware/asyncMiddleware.js";
 import _ from "lodash";
 import dotenv from "dotenv";
 import Joi from "joi";
+import sendConfirmationCode from "../../functions/otp.js";
+import { generateConfirmationCode } from "../../functions/generateCode.js";
 
 dotenv.config();
 
@@ -100,6 +102,25 @@ const updateAdminAccount = async (req, res) => {
   res.send(user);
 };
 
+const sendOtp = async (req, res) => {
+  const { email } = req.body;
+
+  const confirmationCode = generateConfirmationCode().toString(); // convert to string
+  console.log(`ConfirmationCode: ${confirmationCode}`);
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  user.confirmationCode = confirmationCode;
+  await user.save();
+  sendConfirmationCode(email, confirmationCode);
+
+  res.status(200).json({ message: "Confirmation code sent." });
+};
+
 function loginValidate(user) {
   const schema = Joi.object({
     id: Joi.string().min(5).max(255).required(),
@@ -116,4 +137,5 @@ export {
   logoutAdminAccount,
   getAdminAccounts,
   updateAdminAccount,
+  sendOtp,
 };
