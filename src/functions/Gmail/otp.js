@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { User } from "../model/Admin/adminAccount.js";
+import { User } from "../../model/Admin/auth/adminAccount.js";
 
 const mailTransport = nodemailer.createTransport({
   service: "gmail",

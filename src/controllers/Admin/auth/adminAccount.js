@@ -1,15 +1,15 @@
 import bcrypt from "bcrypt";
+import _ from "lodash";
+import dotenv from "dotenv";
+import Joi from "joi";
 import {
   validate,
   User,
   validateUpdate,
-} from "../../model/Admin/adminAccount.js";
-import asyncMiddleware from "../../middleware/asyncMiddleware.js";
-import _ from "lodash";
-import dotenv from "dotenv";
-import Joi from "joi";
-import sendConfirmationCode from "../../functions/otp.js";
-import { generateConfirmationCode } from "../../functions/generateCode.js";
+} from "../../../model/Admin/auth/adminAccount.js";
+import { generateConfirmationCode } from "../../../functions/generateCode.js";
+import sendConfirmationCode from "../../../functions/Gmail/otp.js";
+import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
 
 dotenv.config();
 

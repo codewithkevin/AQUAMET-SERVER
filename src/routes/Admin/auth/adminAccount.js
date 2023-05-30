@@ -7,9 +7,9 @@ import {
   getAdminAccounts,
   updateAdminAccount,
   sendOtp,
-} from "../../controllers/Admin/adminAccount.js";
-import auth from "../../middleware/auth.js";
-import adminAuth from "../../middleware/admin.js";
+} from "../../../controllers/Admin/auth/adminAccount.js";
+import auth from "../../../middleware/auth.js";
+import adminAuth from "../../../middleware/admin.js";
 
 const router = express.Router();
 
