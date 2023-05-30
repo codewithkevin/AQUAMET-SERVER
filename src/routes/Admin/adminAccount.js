@@ -19,6 +19,9 @@ router.post("/create", createAdminAccount);
 //Login Admin Account
 router.post("/login", loginAdminAccount);
 
+//Send OTP
+router.post("/sendotp", sendOtp);
+
 //Get Admin Details
 router.get("/me", [auth, adminAuth], getAdminDetails);
 
@@ -30,8 +33,5 @@ router.get("/adminaccounts", [auth, adminAuth], getAdminAccounts);
 
 //Update Admin Account
 router.put("/update/:id", [auth, adminAuth], updateAdminAccount);
-
-//Send OTP
-router.post("/sendotp", sendOtp);
 
 export default router;
