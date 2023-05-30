@@ -28,17 +28,20 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, privateKey);
+  const token = jwt.sign(
+    { _id: this._id, isAdmin: this.isAdmin },
+    process.env.JWT_PRIVATE_KEY
+  );
   return token;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("webaccount", userSchema);
 
 function validateUser(user) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(50).required(),
     email: Joi.string().min(5).max(255).required().email(),
-    password: passwordComplexity(complexityOptions).required(),
+    password: Joi.string().min(5).max(1024).required(),
   });
 
   return schema.validate(user);
