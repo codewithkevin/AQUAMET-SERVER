@@ -8,6 +8,8 @@ import asyncMiddleware from "../../middleware/asyncMiddleware.js";
 import _ from "lodash";
 import dotenv from "dotenv";
 import Joi from "joi";
+import sendConfirmationCode from "../../functions/otp.js";
+import { generateConfirmationCode } from "../../functions/generateCode.js";
 
 dotenv.config();
 
@@ -20,19 +22,27 @@ const createAdminAccount = async (req, res) => {
 
   let user = await User.findOne({ email: req.body.email });
 
+  const existUser = await User.findOne({
+    personalEmail: req.body.personalEmail,
+  });
+
+  if (existUser) return res.status(400).send("User already exists.");
+
   if (req.body.email !== accountEmail)
     return res.status(400).send("Used Approved Email Accounts Only.");
 
   const existingAdminAccountsCount = await User.countDocuments({
     email: accountEmail,
   });
-  if (req.body.email === accountEmail && existingAdminAccountsCount >= 5) {
+  if (req.body.email === accountEmail && existingAdminAccountsCount >= 3) {
     return res
       .status(400)
       .send("Maximum admin accounts reached for this email.");
   }
 
-  user = new User(_.pick(req.body, ["name", "email", "password"]));
+  user = new User(
+    _.pick(req.body, ["name", "email", "password", "role", "personalEmail"])
+  );
   if (req.body.email === accountEmail) {
     user.isAdmin = true;
   }
@@ -40,7 +50,13 @@ const createAdminAccount = async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
-  const result = _.pick(user, ["_id", "name", "email", "isAdmin"]);
+  const result = _.pick(user, [
+    "name",
+    "email",
+    "password",
+    "role",
+    "personalEmail",
+  ]);
   const token = user.generateAuthToken();
 
   res.status(200).send({ result, token });
@@ -100,6 +116,25 @@ const updateAdminAccount = async (req, res) => {
   res.send(user);
 };
 
+const sendOtp = async (req, res) => {
+  const { email } = req.body;
+
+  const confirmationCode = generateConfirmationCode().toString(); // convert to string
+  console.log(`ConfirmationCode: ${confirmationCode}`);
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  user.confirmationCode = confirmationCode;
+  await user.save();
+  sendConfirmationCode(email, confirmationCode);
+
+  res.status(200).json({ message: "Confirmation code sent." });
+};
+
 function loginValidate(user) {
   const schema = Joi.object({
     id: Joi.string().min(5).max(255).required(),
@@ -116,4 +151,5 @@ export {
   logoutAdminAccount,
   getAdminAccounts,
   updateAdminAccount,
+  sendOtp,
 };

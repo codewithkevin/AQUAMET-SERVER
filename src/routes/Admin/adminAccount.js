@@ -6,6 +6,7 @@ import {
   logoutAdminAccount,
   getAdminAccounts,
   updateAdminAccount,
+  sendOtp,
 } from "../../controllers/Admin/adminAccount.js";
 import auth from "../../middleware/auth.js";
 import adminAuth from "../../middleware/admin.js";
@@ -17,6 +18,9 @@ router.post("/create", createAdminAccount);
 
 //Login Admin Account
 router.post("/login", loginAdminAccount);
+
+//Send OTP
+router.post("/sendotp", sendOtp);
 
 //Get Admin Details
 router.get("/me", [auth, adminAuth], getAdminDetails);

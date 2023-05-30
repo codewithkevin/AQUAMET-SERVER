@@ -6,6 +6,13 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
+const validRoles = ["CTO", "CEO", "CMO"];
+const allowedEmails = [
+  "frankowusuakw@gmail.com",
+  "gabriellorlornyo@gmail.com",
+  "priscybrems18@gmail.com",
+];
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,15 +26,39 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 255,
   },
+  roles: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function (roles) {
+        return roles.every((role) => validRoles.includes(role));
+      },
+      message: "Invalid role(s) provided.",
+    },
+    default: validRoles,
+  },
+  personalEmail: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+    validate: {
+      validator: function (personalEmail) {
+        return allowedEmails.includes(personalEmail); // Use personalEmail instead of email
+      },
+      message: "Access denied. Invalid email.",
+    },
+  },
   password: {
     type: String,
     required: true,
     minlength: 5,
     maxlength: 1024,
   },
+
   isAdmin: {
     type: Boolean,
-    default: false, // Add a default value for the field
+    default: false,
   },
 });
 
@@ -54,7 +85,11 @@ function validate(user) {
   const schema = Joi.object({
     name: Joi.string().min(5).max(50).required(),
     email: Joi.string().min(5).max(255).required().email(),
+    personalEmail: Joi.string()
+      .valid(...allowedEmails)
+      .required(),
     password: passwordComplexity(complexityOptions).required(),
+    role: Joi.string().valid("CTO", "CEO", "CMO").required(),
   });
 
   return schema.validate(user);
