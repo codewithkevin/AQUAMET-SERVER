@@ -53,7 +53,6 @@ const createAdminAccount = async (req, res) => {
   const result = _.pick(user, [
     "name",
     "email",
-    "password",
     "role",
     "personalEmail",
     "_id",

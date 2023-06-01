@@ -31,16 +31,9 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 255,
   },
-  roles: {
-    type: [String],
+  role: {
+    type: String,
     required: true,
-    validate: {
-      validator: function (roles) {
-        return roles.every((role) => validRoles.includes(role));
-      },
-      message: "Invalid role(s) provided.",
-    },
-    default: validRoles,
   },
   personalEmail: {
     type: String,
