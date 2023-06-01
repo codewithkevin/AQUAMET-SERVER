@@ -1,6 +1,7 @@
 import { User, validateUser } from "../../../model/Users/website/users.js";
 import _ from "lodash";
 import bcrypt from "bcrypt";
+import Joi from "joi";
 
 //Create a new Account
 const createUserAccount = async (req, res) => {
@@ -27,10 +28,10 @@ const loginUserAccount = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Invalid Credentials");
+  if (!user) return res.status(400).send("Invalid Email Address");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send("Invalid Credentials");
+  if (!validPassword) return res.status(400).send("Invalid Password");
 
   const token = user.generateAuthToken();
 
@@ -39,8 +40,7 @@ const loginUserAccount = async (req, res) => {
 
 //Get User credentials
 const getUserAccount = async (req, res) => {
-  const user = await User.findById(req.params.id);
-  if (!user) return res.status(404).send("User Not Found");
+  const user = await User.findById(req.user._id).select("-password");
 
   res.status(200).send(user);
 };
@@ -54,4 +54,4 @@ function loginValidate(user) {
   return schema.validate(user);
 }
 
-export { createUserAccount };
+export { createUserAccount, loginUserAccount, getUserAccount };

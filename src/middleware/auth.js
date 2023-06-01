@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../model/Admin/auth/adminAccount.js";
+// import { User } from "../model/Admin/auth/adminAccount.js";
 
 const auth = async (req, res, next) => {
   // verify user is authenticated
