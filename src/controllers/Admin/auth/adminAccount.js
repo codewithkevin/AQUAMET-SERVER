@@ -13,7 +13,7 @@ import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
 
 dotenv.config();
 
-const accountEmail = process.env.ADMIN_MAIL2;
+const accountEmail = process.env.EMAIL;
 const revokedTokens = [];
 
 const createAdminAccount = async (req, res) => {
@@ -56,6 +56,7 @@ const createAdminAccount = async (req, res) => {
     "password",
     "role",
     "personalEmail",
+    "_id",
   ]);
   const token = user.generateAuthToken();
 
@@ -122,7 +123,7 @@ const sendOtp = async (req, res) => {
   const confirmationCode = generateConfirmationCode().toString(); // convert to string
   console.log(`ConfirmationCode: ${confirmationCode}`);
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ personalEmail: email });
 
   if (!user) {
     throw new Error("User not found");

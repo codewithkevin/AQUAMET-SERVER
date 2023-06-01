@@ -1,16 +1,21 @@
 import mongoose from "mongoose";
 import Joi from "joi";
-import passwordComplexity from "joi-password-complexity";
+import { default as passwordComplexity } from "joi-password-complexity";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-const validRoles = ["CTO", "CEO", "CMO"];
+const validRoles = [
+  process.env.ADMIN_ROLE1,
+  process.env.ADMIN_ROLE2,
+  process.env.ADMIN_ROLE3,
+];
 const allowedEmails = [
-  "frankowusuakw@gmail.com",
-  "gabriellorlornyo@gmail.com",
-  "priscybrems18@gmail.com",
+  process.env.ADMIN_USER1,
+  process.env.ADMIN_USER2,
+  process.env.ADMIN_USER3,
+  process.env.ADMIN_USER4,
 ];
 
 const userSchema = new mongoose.Schema({
@@ -87,9 +92,19 @@ function validate(user) {
     email: Joi.string().min(5).max(255).required().email(),
     personalEmail: Joi.string()
       .valid(...allowedEmails)
-      .required(),
+      .required()
+      .messages({
+        "any.only": "Email not recognized, use a valid email address",
+        "any.required": "Personal email is required",
+      }),
     password: passwordComplexity(complexityOptions).required(),
-    role: Joi.string().valid("CTO", "CEO", "CMO").required(),
+    role: Joi.string()
+      .valid(...validRoles)
+      .required()
+      .messages({
+        "any.only": "Role not recognized, use a valid role",
+        "any.required": "Role is required",
+      }),
   });
 
   return schema.validate(user);

@@ -12,14 +12,6 @@ const mailTransport = nodemailer.createTransport({
 });
 
 async function sendConfirmationCode(email, confirmationCode) {
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  user.confirmationCode = confirmationCode;
-  await user.save();
-
   const mailOptions = {
     from: "AUAMATE",
     to: email,
