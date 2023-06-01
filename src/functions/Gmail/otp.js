@@ -1,11 +1,13 @@
 import nodemailer from "nodemailer";
 import { User } from "../../model/Admin/auth/adminAccount.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const mailTransport = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "oseikelvin709@gmail.com",
-    pass: "cawdccuvjzjdkhck",
+    user: process.env.EMAIL,
+    pass: process.env.PASS,
   },
 });
 
@@ -19,10 +21,18 @@ async function sendConfirmationCode(email, confirmationCode) {
   await user.save();
 
   const mailOptions = {
-    from: "Quiz App",
+    from: "AUAMATE",
     to: email,
-    subject: "AQUAMATE",
-    text: `Your confirmation code is ${confirmationCode}.`,
+    subject: "Confirmation Code",
+    html: `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <h2 style="color: #007bff;">Welcome to AUAMATE</h2>
+      <div style="background: white; padding: 2px;">
+        <p>Your confirmation code is <strong>${confirmationCode}</strong>.</p>
+        <img src="https://aquamet-website.vercel.app/static/media/Mockup.90a6b762c04e10ceef6f.png" alt="Company Logo" style="max-width: 700px; ">
+      </div>
+    </div>
+    `,
   };
 
   mailTransport.sendMail(mailOptions, function (error, info) {
