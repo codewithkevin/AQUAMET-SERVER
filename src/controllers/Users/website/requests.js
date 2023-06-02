@@ -3,9 +3,12 @@ import {
   SmartProbe,
   validateRequest,
 } from "../../../model/Users/website/smartProbe.js";
+import {
+  FarmRequest,
+  validateFarmRequest,
+} from "../../../model/Users/website/farmRequest.js";
 import _ from "lodash";
 
-//Create a new Account
 const requestDemo = async (req, res) => {
   const { error } = validateDemo(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -33,6 +36,26 @@ const requestSmartProbe = async (req, res) => {
       "email",
       "location",
       "numberOfProbes",
+    ])
+  );
+  await request.save();
+
+  res.status(200).send({ request });
+};
+
+const requestFarm = async (req, res) => {
+  const { error } = validateFarmRequest(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let request = new FarmRequest(
+    _.pick(req.body, [
+      "phoneNumber",
+      "firstName",
+      "lastName",
+      "email",
+      "location",
+      "numberOfProbes",
+      "farmSize",
     ])
   );
   await request.save();
