@@ -47,6 +47,7 @@ function validateRequest(user) {
     lastName: Joi.string().max(255).required(),
     email: Joi.string().min(5).max(255).required().email(),
     location: Joi.string().min(1).max(255).required(),
+    numberOfProbes: Joi.number().min(1).max(1255).required(),
     phoneNumber: Joi.string().min(5).max(255).required(),
   });
 
