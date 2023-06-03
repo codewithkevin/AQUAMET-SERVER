@@ -10,6 +10,7 @@ import {
 import { generateConfirmationCode } from "../../../functions/generateCode.js";
 import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
+import sendWelcomeMessage from "../../../functions/Gmail/welcomeMessage.js";
 
 dotenv.config();
 
@@ -152,6 +153,25 @@ const verifyCode = async (req, res) => {
   res.status(200).json({ message: "Code verified successfully." });
 };
 
+const welcomeMessage = async (req, res) => {
+  const { personalEmail } = req.body;
+
+  const user = await User.findOne({ personalEmail });
+
+  if (!user) {
+    return res.status(400).send({ message: "User not found" });
+  }
+
+  let email = user.personalEmail;
+  let name = user.name;
+  let role = user.role;
+  let _id = user._id;
+
+  sendWelcomeMessage(email, name, role, _id);
+
+  res.status(200).json({ message: "Email Sent" });
+};
+
 function loginValidate(user) {
   const schema = Joi.object({
     id: Joi.string().min(5).max(255).required(),
@@ -170,4 +190,5 @@ export {
   updateAdminAccount,
   sendOtp,
   verifyCode,
+  welcomeMessage,
 };

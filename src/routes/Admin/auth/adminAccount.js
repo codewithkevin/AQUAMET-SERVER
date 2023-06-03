@@ -8,6 +8,7 @@ import {
   updateAdminAccount,
   sendOtp,
   verifyCode,
+  welcomeMessage,
 } from "../../../controllers/Admin/auth/adminAccount.js";
 import auth from "../../../middleware/auth.js";
 import adminAuth from "../../../middleware/admin.js";
@@ -37,5 +38,8 @@ router.post("/sendotp", sendOtp);
 
 //Verify Code
 router.post("/verifycode", verifyCode);
+
+//Send Welcome Message
+router.post("/welcomemessage", welcomeMessage);
 
 export default router;
