@@ -7,6 +7,7 @@ import {
   getAdminAccounts,
   updateAdminAccount,
   sendOtp,
+  verifyCode,
 } from "../../../controllers/Admin/auth/adminAccount.js";
 import auth from "../../../middleware/auth.js";
 import adminAuth from "../../../middleware/admin.js";
@@ -19,9 +20,6 @@ router.post("/create", createAdminAccount);
 //Login Admin Account
 router.post("/login", loginAdminAccount);
 
-//Send OTP
-router.post("/sendotp", sendOtp);
-
 //Get Admin Details
 router.get("/me", [auth, adminAuth], getAdminDetails);
 
@@ -33,5 +31,11 @@ router.get("/adminaccounts", [auth, adminAuth], getAdminAccounts);
 
 //Update Admin Account
 router.put("/update/:id", [auth, adminAuth], updateAdminAccount);
+
+//Send OTP
+router.post("/sendotp", sendOtp);
+
+//Verify Code
+router.post("/verifycode", verifyCode);
 
 export default router;

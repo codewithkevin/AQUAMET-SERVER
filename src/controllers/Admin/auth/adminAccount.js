@@ -116,22 +116,40 @@ const updateAdminAccount = async (req, res) => {
 };
 
 const sendOtp = async (req, res) => {
-  const { email } = req.body;
+  const { personalEmail } = req.body;
 
   const confirmationCode = generateConfirmationCode().toString(); // convert to string
   console.log(`ConfirmationCode: ${confirmationCode}`);
 
-  const user = await User.findOne({ personalEmail: email });
+  const user = await User.findOne({ personalEmail });
 
   if (!user) {
-    throw new Error({ message: "User not found" });
+    res.status(400).send({ message: "User not found" });
   }
 
   user.confirmationCode = confirmationCode;
   await user.save();
-  sendConfirmationCode(email, confirmationCode);
+  sendConfirmationCode(personalEmail, confirmationCode);
 
   res.status(200).json({ message: "Confirmation code sent." });
+};
+
+const verifyCode = async (req, res) => {
+  const { personalEmail, code } = req.body;
+
+  const user = await User.findOne({ personalEmail });
+
+  if (!user) {
+    return res.status(400).send({ message: "User not found" });
+  }
+
+  if (user.confirmationCode !== code) {
+    return res.status(400).send({ message: "Invalid confirmation code" });
+  }
+
+  // Code is valid, perform further actions
+
+  res.status(200).json({ message: "Code verified successfully." });
 };
 
 function loginValidate(user) {
@@ -151,4 +169,5 @@ export {
   getAdminAccounts,
   updateAdminAccount,
   sendOtp,
+  verifyCode,
 };
