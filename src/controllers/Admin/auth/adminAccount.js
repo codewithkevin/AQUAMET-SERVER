@@ -18,7 +18,7 @@ const revokedTokens = [];
 
 const createAdminAccount = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ message: error.details[0].message });
 
   let user = await User.findOne({ email: req.body.email });
 
@@ -26,10 +26,10 @@ const createAdminAccount = async (req, res) => {
     personalEmail: req.body.personalEmail,
   });
 
-  if (existUser) return res.status(400).send("User already exists.");
+  if (existUser) return res.status(400).send({ message: "Email already used" });
 
   if (req.body.email !== accountEmail)
-    return res.status(400).send("Used Approved Email Accounts Only.");
+    return res.status(400).send({ message: "Email not recognized by company" });
 
   const existingAdminAccountsCount = await User.countDocuments({
     email: accountEmail,
@@ -37,7 +37,7 @@ const createAdminAccount = async (req, res) => {
   if (req.body.email === accountEmail && existingAdminAccountsCount >= 3) {
     return res
       .status(400)
-      .send("Maximum admin accounts reached for this email.");
+      .send({ message: "Maximum number of admin accounts reached" });
   }
 
   user = new User(
@@ -64,13 +64,13 @@ const createAdminAccount = async (req, res) => {
 
 const loginAdminAccount = async (req, res) => {
   const { error } = loginValidate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ message: error.details[0].message });
 
   let user = await User.findById(req.body.id);
-  if (!user) return res.status(400).send("Invalid ID");
+  if (!user) return res.status(400).send({ message: "Invalid ID" });
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send("Invalid password");
+  if (!validPassword) return res.status(400).send({ message: "Invalid ID" });
 
   const token = user.generateAuthToken();
 
@@ -87,7 +87,7 @@ const logoutAdminAccount = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
 
   if (revokedTokens.includes(token)) {
-    return res.status(401).send("Token has already been revoked");
+    return res.status(401).send({ message: "Already logged out" });
   }
 
   revokedTokens.push(token);
@@ -102,7 +102,7 @@ const getAdminAccounts = async (req, res) => {
 
 const updateAdminAccount = async (req, res) => {
   const { error } = validateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ message: error.details[0].message });
 
   const user = await User.findByIdAndUpdate(
     req.params.id,
@@ -110,8 +110,7 @@ const updateAdminAccount = async (req, res) => {
     { new: true }
   );
 
-  if (!user)
-    return res.status(404).send("Usse ID not found. Cannot update user");
+  if (!user) return res.status(404).send({ message: "The user was not found" });
 
   res.send(user);
 };
@@ -125,7 +124,7 @@ const sendOtp = async (req, res) => {
   const user = await User.findOne({ personalEmail: email });
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error({ message: "User not found" });
   }
 
   user.confirmationCode = confirmationCode;
