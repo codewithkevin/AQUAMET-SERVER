@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import Templates from "../../template/gmail/welcome.js";
 dotenv.config();
 
 const mailTransport = nodemailer.createTransport({
@@ -15,19 +16,7 @@ async function sendWelcomeMessage(email, name, role, _id) {
     from: "AUAMATE",
     to: email,
     subject: "Welcome to AUAMATE, Account Created Successfully",
-    html: `
-    <div style="font-family: Arial, sans-serif; color: #333;">
-      <h2 style="color: #007bff;">Welcome to AUAMATE</h2>
-      <p>Below are you crendtials, this crendtials must be your secret. Use this crendtials to login anytime.</p>
-      <div style="background: white; padding: 2px;">
-        <h6>ID:${_id}</h6>
-        <h6>NAME:${name}</h6>
-        <h6>ROLE:${role}</h6>
-        <h6>EMAIL:${email}</h6>
-        <img src="https://aquamet-website.vercel.app/static/media/Mockup.90a6b762c04e10ceef6f.png" alt="Company Logo" style="max-width: 700px; ">
-      </div>
-    </div>
-    `,
+    html: Templates.HTML({ email, name, role, _id }),
   };
 
   mailTransport.sendMail(mailOptions, function (error, info) {
