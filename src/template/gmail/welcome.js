@@ -326,7 +326,7 @@ const Templates = {
           <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px 15px;font-family:arial,helvetica,sans-serif;" align="left">
             
       <div class="v-text-align" style="font-size: 14px; color: #596374; line-height: 140%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Email: Welcome</span></p>
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Email: ${email}</span></p>
       </div>
     
           </td>
@@ -340,7 +340,7 @@ const Templates = {
           <td style="overflow-wrap:break-word;word-break:break-word;padding:7px 10px 0px 15px;font-family:arial,helvetica,sans-serif;" align="left">
             
       <div class="v-text-align" style="font-size: 14px; color: #596374; line-height: 140%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Name: Osei Kelvin</span></p>
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Name: ${name}</span></p>
       </div>
     
           </td>
