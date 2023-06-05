@@ -12,19 +12,21 @@ const mailTransport = nodemailer.createTransport({
 });
 
 async function sendWelcomeMessage(email, name, role, _id) {
-  const mailOptions = {
-    from: "AUAMATE",
-    to: email,
-    subject: "Welcome to AUAMATE, Account Created Successfully",
-    html: Templates.HTML({ email, name, role, _id }),
-  };
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: "AUAMATE",
+      to: email,
+      subject: "Welcome to AUAMATE",
+      html: Templates.HTML({ email, name, role, _id }),
+    };
 
-  mailTransport.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
+    mailTransport.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info);
+      }
+    });
   });
 }
 

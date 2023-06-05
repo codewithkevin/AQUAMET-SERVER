@@ -167,9 +167,12 @@ const welcomeMessage = async (req, res) => {
   let role = user.role;
   let _id = user._id;
 
-  sendWelcomeMessage(email, name, role, _id);
-
-  res.status(200).json({ message: "Email Sent" });
+  try {
+    await sendWelcomeMessage(email, name, role, _id);
+    res.status(200).json({ message: "Email Sent" });
+  } catch (error) {
+    res.status(500).json({ message: "Error sending email", error });
+  }
 };
 
 function loginValidate(user) {
