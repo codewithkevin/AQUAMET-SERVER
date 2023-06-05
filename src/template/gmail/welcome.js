@@ -354,7 +354,7 @@ const Templates = {
           <td style="overflow-wrap:break-word;word-break:break-word;padding:7px 10px 0px 15px;font-family:arial,helvetica,sans-serif;" align="left">
             
       <div class="v-text-align" style="font-size: 14px; color: #596374; line-height: 140%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Id: 109919919</span></p>
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Id: ${_id}</span></p>
       </div>
     
           </td>
@@ -368,7 +368,7 @@ const Templates = {
           <td style="overflow-wrap:break-word;word-break:break-word;padding:7px 10px 0px 16px;font-family:arial,helvetica,sans-serif;" align="left">
             
       <div class="v-text-align" style="font-size: 14px; color: #596374; line-height: 140%; text-align: left; word-wrap: break-word;">
-        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Role: CEO</span></p>
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 12px; line-height: 16.8px; font-family: arial, helvetica, sans-serif;">•  Role: ${role}</span></p>
       </div>
     
           </td>
