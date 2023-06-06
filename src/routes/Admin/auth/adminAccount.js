@@ -9,6 +9,7 @@ import {
   sendOtp,
   verifyCode,
   welcomeMessage,
+  resetAdminPassword,
 } from "../../../controllers/Admin/auth/adminAccount.js";
 import auth from "../../../middleware/auth.js";
 import adminAuth from "../../../middleware/admin.js";
@@ -32,6 +33,9 @@ router.get("/adminaccounts", [auth, adminAuth], getAdminAccounts);
 
 //Update Admin Account
 router.put("/update/:id", [auth, adminAuth], updateAdminAccount);
+
+//Reset Admin Password
+router.put("/resetpassword", resetAdminPassword);
 
 //Send OTP
 router.post("/sendotp", sendOtp);

@@ -71,7 +71,7 @@ const loginAdminAccount = async (req, res) => {
   if (!user) return res.status(400).send({ message: "Invalid ID" });
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send({ message: "Invalid ID" });
+  if (!validPassword) return res.status(400).send({ message: "Invalid Password" });
 
   const token = user.generateAuthToken();
 
@@ -114,6 +114,26 @@ const updateAdminAccount = async (req, res) => {
   if (!user) return res.status(404).send({ message: "The user was not found" });
 
   res.send(user);
+};
+
+const resetAdminPassword = async (req, res) => {
+  const { error } = validatePassword(req.body);
+  if (error) return res.status(400).send({ message: error.details[0].message });
+
+  const { newPassword, oldPassword } = req.body;
+
+  let user = await User.findOne({ personalEmail: req.body.personalEmail });
+  if (!user) return res.status(404).send({ message: "User not found" });
+
+  const validPassword = await bcrypt.compare(oldPassword, user.password);
+  if (!validPassword)
+    return res.status(400).send({ message: "Invalid password" });
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(newPassword, salt);
+  await user.save();
+
+  res.status(200).send({ message: "Password reset successful" });
 };
 
 const sendOtp = async (req, res) => {
@@ -184,6 +204,16 @@ function loginValidate(user) {
   return schema.validate(user);
 }
 
+function validatePassword(user) {
+  const schema = Joi.object({
+    oldPassword: Joi.string().min(5).max(255).required(),
+    newPassword: Joi.string().min(5).max(255).required(),
+    personalEmail: Joi.string().min(5).max(255).required(),
+  });
+
+  return schema.validate(user);
+}
+
 export {
   createAdminAccount,
   loginAdminAccount,
@@ -194,4 +224,5 @@ export {
   sendOtp,
   verifyCode,
   welcomeMessage,
+  resetAdminPassword,
 };
