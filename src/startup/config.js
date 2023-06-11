@@ -1,7 +1,7 @@
 import config from "config";
 
 export default function () {
-  const nodeEnv = config.util.getEnv("NODE_ENV");
+  const nodeEnv = config.get("node_env");
   const jwt = config.get("jwtPrivateKey");
   const port = config.get("port");
 

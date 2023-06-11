@@ -9,5 +9,6 @@
   "admin_role3": "ADMIN_ROLE3",
   "port": "PORT",
   "company_email": "EMAIL", 
-  "pass": "PASS"
+  "pass": "PASS", 
+  "node_env": "NODE_ENV"
 }
