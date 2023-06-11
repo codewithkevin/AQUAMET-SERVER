@@ -1,5 +1,5 @@
 {
-  "jwtPrivateKey": "JWT_PRIVATE_KEY",
+  "jwtPrivateKey": "",
   "db": "mongodb://localhost/aquamet",
   "NODE_ENV": "NODE_ENV_VALUE"
 }
