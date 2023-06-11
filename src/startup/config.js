@@ -5,7 +5,7 @@ export default function () {
   const jwt = config.get("jwtPrivateKey");
 
   console.log("Current environment:", nodeEnv);
-    console.log("Current jwtPrivateKey:", jwt);
+  console.log("Current jwtPrivateKey:", jwt);
   if (!config.get("jwtPrivateKey")) {
     throw new Error("FATAL ERROR: jwtPrivateKey is not defined.");
   }

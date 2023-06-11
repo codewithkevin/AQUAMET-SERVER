@@ -1,5 +1,12 @@
 {
   "jwtPrivateKey": "",
   "db": "mongodb://localhost/aquamet",
-  "NODE_ENV": "NODE_ENV_VALUE"
+  "NODE_ENV": "NODE_ENV_VALUE",
+  "admin_user1": "",
+  "admin_user2": "",
+  "admin_user3": "",
+  "admin_user4": "",
+  "admin_role1": "",
+  "admin_role2": "",
+  "admin_role3": ""
 }

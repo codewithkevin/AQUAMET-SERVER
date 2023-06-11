@@ -1,3 +1,10 @@
 {
-    "jwtPrivateKey": "JWT_PRIVATE_KEY"
-  }
+  "jwtPrivateKey": "JWT_PRIVATE_KEY",
+  "admin_user1": "ADMIN_USER1",
+  "admin_user2": "ADMIN_USER2",
+  "admin_user3": "ADMIN_USER3",
+  "admin_user4": "ADMIN_USER4",
+  "admin_role1": "ADMIN_ROLE1",
+  "admin_role2": "ADMIN_ROLE2",
+  "admin_role3": "ADMIN_ROLE3"
+}
