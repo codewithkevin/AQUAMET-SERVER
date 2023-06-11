@@ -1,5 +1,5 @@
 import winston from "winston";
-import "winston-mongodb";
+// import "winston-mongodb";
 import "express-async-errors";
 
 export default function configureLogging() {
@@ -15,18 +15,18 @@ export default function configureLogging() {
     throw ex;
   });
 
-  winston.add(
-    new winston.transports.MongoDB({
-      level: "info",
-      db: process.env.DB_URL,
-      options: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      collection: "logs",
-      capped: true,
-      cappedSize: 10000000,
-      cappedMax: 100,
-    })
-  );
+  // winston.add(
+  //   new winston.transports.MongoDB({
+  //     level: "info",
+  //     db: process.env.DB_URL,
+  //     options: {
+  //       useNewUrlParser: true,
+  //       useUnifiedTopology: true,
+  //     },
+  //     collection: "logs",
+  //     capped: true,
+  //     cappedSize: 10000000,
+  //     cappedMax: 100,
+  //   })
+  // );
 }
