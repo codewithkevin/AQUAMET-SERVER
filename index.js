@@ -16,12 +16,13 @@ import connectToMongoDB from "./src/startup/connectDB.js";
 import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
 import configureLogging from "./src/startup/logging.js";
 import configureWebsiteRoutes from "./src/startup/routes/Users/Website/routes.js";
-
+import configureViewEngine from "./src/startup/config.js";
 //Uses StartUp
 configureLogging();
 configureAdminRoutes(app);
 configureWebsiteRoutes(app);
 connectToMongoDB();
+configureViewEngine();
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => logger.info(`Listening on port ${port}...`));

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import winston from "winston";
+import config from "config";
 
 const logger = winston.createLogger({
   format: winston.format.simple(),
@@ -7,7 +8,6 @@ const logger = winston.createLogger({
 });
 
 export default function connectToMongoDB() {
-  mongoose
-    .connect(process.env.DB_URL)
-    .then(() => logger.info("Connected to MongoDB..."));
+  const db = config.get("db");
+  mongoose.connect(db).then(() => logger.info(`Connected to ${db}...`));
 }
