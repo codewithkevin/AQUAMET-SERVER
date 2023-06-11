@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import winston from "winston";
+import config from "config";
 
 dotenv.config();
 const app = express();
@@ -24,5 +25,5 @@ configureWebsiteRoutes(app);
 connectToMongoDB();
 configureViewEngine();
 
-const port = process.env.PORT || 4000;
+const port = config.get("port") || 4000;
 app.listen(port, () => logger.info(`Listening on port ${port}...`));

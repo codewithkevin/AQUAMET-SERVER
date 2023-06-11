@@ -8,5 +8,8 @@
   "admin_user4": "",
   "admin_role1": "",
   "admin_role2": "",
-  "admin_role3": ""
+  "admin_role3": "",
+  "port": "",
+  "company_email": "",
+  "pass": ""
 }
