@@ -1,6 +1,7 @@
 import { User } from "../../model/Admin/auth/adminAccount.js";
 import jwt from "jsonwebtoken";
 import config from "config";
+import mongoose from "mongoose";
 
 const jwt_key = config.get("jwtPrivateKey");
 
@@ -8,10 +9,8 @@ describe("User", () => {
   describe("generateAuthToken", () => {
     it("should generate a valid JWT token", () => {
       const payload = {
-        _id: "testUserId",
+        _id: new mongoose.Types.ObjectId().toHexString(),
         isAdmin: true,
-        name: "John Doe",
-        personalEmail: "test@example.com",
       };
 
       const user = new User(payload);
