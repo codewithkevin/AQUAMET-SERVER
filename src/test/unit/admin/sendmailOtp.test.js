@@ -1,4 +1,4 @@
-import sendConfirmationCode from "../../functions/Gmail/otp.js";
+import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 
 jest.mock("console", () => ({
   log: jest.fn(),
@@ -6,7 +6,7 @@ jest.mock("console", () => ({
 
 describe("sendConfirmationCode", () => {
   it("should send an email with a confirmation code", async () => {
-    const email = "oseikelvin709@gmail.com";
+    const email = "oseikelvin@gmail.com";
     const confirmationCode = "123456";
 
     await sendConfirmationCode(email, confirmationCode);

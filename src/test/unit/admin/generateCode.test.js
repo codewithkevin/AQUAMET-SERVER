@@ -1,4 +1,4 @@
-import { generateConfirmationCode } from "../../functions/generateCode.js";
+import { generateConfirmationCode } from "../../../functions/generateCode.js";
 import assert from "assert";
 
 describe("generateConfirmationCode", () => {

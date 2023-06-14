@@ -1,4 +1,4 @@
-import { User } from "../../model/Admin/auth/adminAccount.js";
+import { User } from "../../../model/Admin/auth/adminAccount.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
