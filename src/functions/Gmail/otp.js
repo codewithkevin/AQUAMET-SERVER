@@ -30,7 +30,7 @@ async function sendConfirmationCode(email, confirmationCode) {
     const info = await mailTransport.sendMail(mailOptions);
     console.log("Email sent: " + info.response);
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 }
 
