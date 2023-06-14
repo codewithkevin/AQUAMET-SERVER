@@ -3,25 +3,22 @@ import Joi from "joi";
 import { default as passwordComplexity } from "joi-password-complexity";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import config from "config";
 
 dotenv.config();
 
-const jwt_key = config.get("jwtPrivateKey");
+const jwt_key = process.env.JWT_PRIVATE_KEY;
 
-//ADMINS EMAILS
-const admin1 = config.get("admin_user1");
-const admin2 = config.get("admin_user2");
-const admin3 = config.get("admin_user3");
-const admin4 = config.get("admin_user4");
-
-//ADMINS ROLE
-const admin_role1 = config.get("admin_role1");
-const admin_role2 = config.get("admin_role2");
-const admin_role3 = config.get("admin_role3");
-
-const validRoles = [admin_role1, admin_role2, admin_role3];
-const allowedEmails = [admin1, admin2, admin3, admin4];
+const validRoles = [
+  process.env.ADMIN_ROLE1,
+  process.env.ADMIN_ROLE2,
+  process.env.ADMIN_ROLE3,
+];
+const allowedEmails = [
+  process.env.ADMIN_USER1,
+  process.env.ADMIN_USER2,
+  process.env.ADMIN_USER3,
+  process.env.ADMIN_USER4,
+];
 
 const userSchema = new mongoose.Schema({
   name: {

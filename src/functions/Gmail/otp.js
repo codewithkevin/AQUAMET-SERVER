@@ -14,6 +14,11 @@ const mailTransport = nodemailer.createTransport({
 });
 
 async function sendConfirmationCode(email, confirmationCode) {
+  // Validate email address
+  if (!isValidEmail(email)) {
+    throw new Error("Invalid email address");
+  }
+
   const mailOptions = {
     from: "AUAMATE",
     to: email,
@@ -21,13 +26,18 @@ async function sendConfirmationCode(email, confirmationCode) {
     html: Templates.HTML({ confirmationCode }),
   };
 
-  mailTransport.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  try {
+    const info = await mailTransport.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+function isValidEmail(email) {
+  // Simple email address validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }
 
 export default sendConfirmationCode;

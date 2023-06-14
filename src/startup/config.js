@@ -1,18 +1,10 @@
-import config from "config";
+import dotenv from "dotenv";
+dotenv.config();
 
-export default function () {
-  const jwt = config.get("jwtPrivateKey");
-  const port = config.get("port");
-  const admin = config.get("admin_role3");
-  const pass = config.get("pass");
-  const email = config.get("company_email");
+export default function checkJwtPrivateKey() {
+  const jwtPrivateKey = process.env.JWT_PRIVATE_KEY;
 
-  console.log("Current jwtPrivateKey:", jwt);
-  console.log("Current port:", port);
-  console.log("Current admin:", admin);
-  console.log("Current pass:", pass);
-  console.log("Current email:", email);
-  if (!config.get("jwtPrivateKey")) {
+  if (!jwtPrivateKey) {
     throw new Error("FATAL ERROR: jwtPrivateKey is not defined.");
   }
 }

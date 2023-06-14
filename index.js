@@ -25,5 +25,5 @@ configureWebsiteRoutes(app);
 connectToMongoDB();
 configureViewEngine();
 
-const port = config.get("port")
+const port = process.env.PORT || 4000;
 app.listen(port, () => logger.info(`Listening on port ${port}...`));

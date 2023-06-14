@@ -1,5 +1,5 @@
 import { generateConfirmationCode } from "../../functions/generateCode.js";
-import assert from 'assert';
+import assert from "assert";
 
 describe("generateConfirmationCode", () => {
   it("should generate a 6-digit number", () => {

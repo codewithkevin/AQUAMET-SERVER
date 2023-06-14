@@ -1,9 +1,10 @@
 import { User } from "../../model/Admin/auth/adminAccount.js";
 import jwt from "jsonwebtoken";
-import config from "config";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const jwt_key = config.get("jwtPrivateKey");
+dotenv.config();
+const jwt_key = process.env.JWT_PRIVATE_KEY;
 
 describe("User", () => {
   describe("generateAuthToken", () => {

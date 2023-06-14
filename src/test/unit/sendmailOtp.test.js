@@ -6,13 +6,13 @@ jest.mock("console", () => ({
 
 describe("sendConfirmationCode", () => {
   it("should send an email with a confirmation code", async () => {
-    const email = "test@example.com";
+    const email = "oseikelvin709@gmail.com";
     const confirmationCode = "123456";
 
     await sendConfirmationCode(email, confirmationCode);
 
     jest.spyOn(console, "log");
-    await Promise.resolve(); 
+    await Promise.resolve();
     console.log("Email sent: OK");
     expect(console.log).toHaveBeenCalledTimes(1);
     expect(console.log.mock.calls[0][0]).toEqual("Email sent: OK");
