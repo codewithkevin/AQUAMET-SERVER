@@ -10,7 +10,7 @@ import {
   verifyCode,
   welcomeMessage,
   resetAdminPassword,
-} from "../../../controllers/Admin/auth/adminAccount.js";
+} from "../../../controllers/Admin/auth/admin.controller.js";
 import auth from "../../../middleware/auth.js";
 import adminAuth from "../../../middleware/admin.js";
 

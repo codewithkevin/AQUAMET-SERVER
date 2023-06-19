@@ -6,7 +6,7 @@ import {
   validate,
   User,
   validateUpdate,
-} from "../../../model/Admin/auth/adminAccount.js";
+} from "../../../model/Admin/auth/admin.model.js";
 import { generateConfirmationCode } from "../../../functions/generateCode.js";
 import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
@@ -71,7 +71,8 @@ const loginAdminAccount = async (req, res) => {
   if (!user) return res.status(400).send({ message: "Invalid ID" });
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send({ message: "Invalid Password" });
+  if (!validPassword)
+    return res.status(400).send({ message: "Invalid Password" });
 
   const token = user.generateAuthToken();
 
