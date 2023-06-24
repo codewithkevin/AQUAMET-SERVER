@@ -71,7 +71,8 @@ const loginAdminAccount = async (req, res) => {
   if (!user) return res.status(400).send({ message: "Invalid ID" });
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) return res.status(400).send({ message: "Invalid Password" });
+  if (!validPassword)
+    return res.status(400).send({ message: "Invalid Password" });
 
   const token = user.generateAuthToken();
 

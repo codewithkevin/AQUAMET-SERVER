@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-// import { User } from "../../model/Admin/auth/adminAccount.js";
+import { User } from "../../model/Admin/auth/admin.model.js";
 import Templates from "../../template/gmail/confirmCode.js";
 
 import dotenv from "dotenv";
