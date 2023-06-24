@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import axios from "axios";
 import _ from "lodash";
 import dotenv from "dotenv";
 import Joi from "joi";
@@ -76,9 +77,31 @@ const loginAdminAccount = async (req, res) => {
 
   const token = user.generateAuthToken();
 
-  res.status(200).send({ result: token });
-};
+  // Get request details
+  const ip = req.ip; // Assuming you want the IP address of the requester
 
+  try {
+    const locationResponse = await axios.get(
+      `https://api.ipify.org?format=json`
+    );
+    const { ip } = locationResponse.data;
+
+    const geolocationResponse = await axios.get(`https://ipapi.co/${ip}/json/`);
+    const { city, region, country_name } = geolocationResponse.data;
+
+    const location = `${city}, ${region}, ${country_name}`;
+
+    const device = req.headers["user-agent"]; // User Agent header contains device information
+    const time = new Date().toISOString(); // Get the current time in ISO format
+
+    const data = { location, device, time };
+
+    res.status(200).send({ result: token, data });
+  } catch (error) {
+    console.error("Error retrieving location:", error);
+    res.status(500).send({ message: "Error retrieving location" });
+  }
+};
 const getAdminDetails = async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
 
