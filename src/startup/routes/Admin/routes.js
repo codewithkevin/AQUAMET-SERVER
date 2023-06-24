@@ -1,5 +1,5 @@
 import express from "express";
-import adminRoute from "../../../routes/Admin/auth/adminAccount.js";
+import adminRoute from "../../../routes/Admin/auth/admin.route.js";
 
 export default function (app) {
   app.use(express.json());

@@ -6,7 +6,7 @@ import {
   validate,
   User,
   validateUpdate,
-} from "../../../model/Admin/auth/adminAccount.js";
+} from "../../../model/Admin/auth/admin.model.js";
 import { generateConfirmationCode } from "../../../functions/generateCode.js";
 import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
