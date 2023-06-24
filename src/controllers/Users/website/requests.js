@@ -14,11 +14,10 @@ const requestDemo = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let demo = await Demo.findOne({ phoneNumber: req.body.phoneNumber });
-  if (demo) return res.status(400).send("Demo Already Submmitted");
+  if (demo) return res.status(400).send({ message: "Demo already requested" });
 
-  demo = new Demo(
-    _.pick(req.body, ["phoneNumber", "firstName", "lastName", "email"])
-  );
+  demo = new Demo(req.body);
+
   await demo.save();
 
   res.status(200).send({ demo });
@@ -28,16 +27,11 @@ const requestSmartProbe = async (req, res) => {
   const { error } = validateRequest(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let request = new SmartProbe(
-    _.pick(req.body, [
-      "phoneNumber",
-      "firstName",
-      "lastName",
-      "email",
-      "location",
-      "numberOfProbes",
-    ])
-  );
+  let request = await SmartProbe.findOne({ phoneNumber: req.body.phoneNumber });
+  if (request) return res.status(400).send({ message: "Request already sent" });
+
+  request = new SmartProbe(req.body);
+
   await request.save();
 
   res.status(200).send({ request });
@@ -45,22 +39,18 @@ const requestSmartProbe = async (req, res) => {
 
 const requestFarm = async (req, res) => {
   const { error } = validateFarmRequest(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ message: error.details[0].message });
 
-  let request = new FarmRequest(
-    _.pick(req.body, [
-      "phoneNumber",
-      "firstName",
-      "lastName",
-      "email",
-      "location",
-      "numberOfProbes",
-      "farmSize",
-    ])
-  );
+  let request = await FarmRequest.findOne({
+    phoneNumber: req.body.phoneNumber,
+  });
+  if (request) return res.status(400).send({ message: "Request already sent" });
+
+  request = new FarmRequest(req.body);
+
   await request.save();
 
   res.status(200).send({ request });
 };
 
-export { requestDemo, requestSmartProbe };
+export { requestDemo, requestSmartProbe, requestFarm };
