@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import winston from "winston";
 import config from "config";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const logger = winston.createLogger({
   format: winston.format.simple(),
@@ -8,6 +11,7 @@ const logger = winston.createLogger({
 });
 
 export default function connectToMongoDB() {
-  const db = config.get("db");
+  const db = process.env.DB_URL;
+
   mongoose.connect(db).then(() => logger.info(`Connected to ${db}...`));
 }
