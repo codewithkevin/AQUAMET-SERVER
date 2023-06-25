@@ -13,5 +13,10 @@ const logger = winston.createLogger({
 export default function connectToMongoDB() {
   const db = process.env.DB_URL;
 
-  mongoose.connect(db).then(() => logger.info(`Connected to ${db}...`));
+  mongoose
+    .connect(db, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => logger.info(`Connected to ${db}...`));
 }
