@@ -98,7 +98,16 @@ const loginAdminAccount = async (req, res) => {
     const location = `${city}, ${region}, ${country_name}`;
 
     const device = req.headers["user-agent"]; // User Agent header contains device information
-    const time = new Date().toISOString(); // Get the current time in ISO format
+    const currentDate = new Date();
+    const options = {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const time = currentDate.toLocaleString("en-US", options);
 
     const data = { location, device, time };
 
