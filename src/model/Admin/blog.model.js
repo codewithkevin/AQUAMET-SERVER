@@ -24,16 +24,22 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Populate the user properties when retrieving a blog
+blogSchema.pre("findOne", function (next) {
+  this.populate({ path: "user", model: "Adminaccount", select: "-password" });
+  next();
+});
+
 const Blog = mongoose.model("adminBlog", blogSchema);
 
-function validateBlog(user) {
+function validateBlog(blog) {
   const schema = Joi.object({
     heading: Joi.string().required(),
     description: Joi.string().required(),
     content: Joi.string().required(),
   });
 
-  return schema.validate(user);
+  return schema.validate(blog);
 }
 
 export { Blog, validateBlog };
