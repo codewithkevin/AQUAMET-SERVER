@@ -12,6 +12,7 @@ import { generateConfirmationCode } from "../../../functions/generateCode.js";
 import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
 import sendWelcomeMessage from "../../../functions/Gmail/welcomeMessage.js";
+import sendLoginAlert from "../../../functions/Gmail/loginNotice.js";
 
 dotenv.config();
 
@@ -75,6 +76,11 @@ const loginAdminAccount = async (req, res) => {
   if (!validPassword)
     return res.status(400).send({ message: "Invalid Password" });
 
+  const email = user.personalEmail; // Get the email of the user
+  const name = user.name; // Get the name of the user
+
+  console.log("User:", email, name);
+
   const token = user.generateAuthToken();
 
   // Get request details
@@ -97,11 +103,13 @@ const loginAdminAccount = async (req, res) => {
     const data = { location, device, time };
 
     res.status(200).send({ result: token, data });
+    sendLoginAlert(email, name, location, device, time);
   } catch (error) {
     console.error("Error retrieving location:", error);
     res.status(500).send({ message: "Error retrieving location" });
   }
 };
+
 const getAdminDetails = async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
 

@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { User } from "../../model/Admin/auth/admin.model.js";
-import Templates from "../../template/gmail/confirmCode.js";
+import Templates from "../../template/gmail/loginNotice.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,7 +13,7 @@ const mailTransport = nodemailer.createTransport({
   },
 });
 
-async function sendLoginAlert(email) {
+async function sendLoginAlert(email, name, location, device, time) {
   // Validate email address
   if (!isValidEmail(email)) {
     throw new Error("Invalid email address");
@@ -23,7 +23,7 @@ async function sendLoginAlert(email) {
     from: "AUAMATE",
     to: email,
     subject: "Confirmation Code",
-    html: Templates.HTML({ confirmationCode }),
+    html: Templates.HTML({ name, location, device, time }),
   };
 
   try {
