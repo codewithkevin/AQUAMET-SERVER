@@ -13,7 +13,6 @@ const Templates = {
                 <tr style="width:100%">
                     <td><img alt="Plaid" src="https://aquamet-website.vercel.app/static/media/logo512.9a3ca2850c06c503ecfe.png" width="212" height="130" style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto" />
                     <p style="font-size:11px;line-height:16px;margin:16px 8px 8px 8px;color:#0a85ea;font-weight:700;font-family:HelveticaNeue,Helvetica,Arial,sans-serif;height:16px;letter-spacing:0;text-transform:uppercase;text-align:center">Verify Your Identity</p>
-                    <h1 style="color:#000;display:inline-block;font-family:HelveticaNeue-Medium,Helvetica,Arial,sans-serif;font-size:20px;font-weight:500;line-height:24px;margin-bottom:0;margin-top:0;text-align:center">Enter the following code to finish linking Aquamet.</h1>
                     <table style="background:rgba(0,0,0,.05);border-radius:4px;margin:16px auto 14px;vertical-align:middle;width:280px" align="center" border="0" cellPadding="0" cellSpacing="0" role="presentation" width="100%">
                         <tbody>
                         <tr>
@@ -30,7 +29,7 @@ const Templates = {
             </body>
 
         </html>
-          `;
+    `;
   },
 };
 
