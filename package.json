@@ -38,6 +38,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.1",
+    "nanoid": "^4.0.2",
     "nodemailer": "^6.9.3",
     "nodemon": "^2.0.22",
     "winston": "^3.9.0",

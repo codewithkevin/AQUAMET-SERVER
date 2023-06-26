@@ -66,6 +66,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  companyId: {
+    type: Number,
+    required: true,
+  },
 });
 
 userSchema.methods.generateAuthToken = function () {
