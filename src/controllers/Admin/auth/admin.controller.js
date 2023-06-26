@@ -77,8 +77,8 @@ const loginAdminAccount = async (req, res) => {
   const { error } = loginValidate(req.body);
   if (error) return res.status(400).send({ message: error.details[0].message });
 
-  let user = await User.findById(req.body.id);
-  if (!user) return res.status(400).send({ message: "Invalid ID" });
+  let user = await User.findOne({ companyId: req.body.companyId }); // Find the user by companyId
+  if (!user) return res.status(400).send({ message: "Invalid Company ID" });
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword)
@@ -86,8 +86,6 @@ const loginAdminAccount = async (req, res) => {
 
   const email = user.personalEmail; // Get the email of the user
   const name = user.name; // Get the name of the user
-
-  console.log("User:", email, name);
 
   const token = user.generateAuthToken();
 
@@ -246,7 +244,7 @@ const welcomeMessage = async (req, res) => {
 
 function loginValidate(user) {
   const schema = Joi.object({
-    id: Joi.string().min(5).max(255).required(),
+    companyId: Joi.string().min(5).max(255).required(),
     password: Joi.string().min(5).max(255).required(),
   });
 

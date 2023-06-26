@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
   companyId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
