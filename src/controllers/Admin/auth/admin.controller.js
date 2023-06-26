@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import { customAlphabet } from "nanoid";
 import axios from "axios";
 import _ from "lodash";
 import dotenv from "dotenv";
@@ -14,6 +13,7 @@ import sendConfirmationCode from "../../../functions/Gmail/otp.js";
 import asyncMiddleware from "../../../middleware/asyncMiddleware.js";
 import sendWelcomeMessage from "../../../functions/Gmail/welcomeMessage.js";
 import sendLoginAlert from "../../../functions/Gmail/loginNotice.js";
+import generateCompanyId from "../../../functions/generateCompanyId.js";
 
 dotenv.config();
 
@@ -21,7 +21,6 @@ const accountEmail = process.env.EMAIL;
 const revokedTokens = [];
 
 const allowedCharacters = process.env.ALLOWED_CHARACTERS;
-const generateCompanyId = customAlphabet(allowedCharacters, 7);
 
 const createAdminAccount = async (req, res) => {
   const { error } = validate(req.body);
@@ -51,8 +50,7 @@ const createAdminAccount = async (req, res) => {
     _.pick(req.body, ["name", "email", "password", "role", "personalEmail"])
   );
 
-  // Generate a Company ID
-  const companyId = "1" + generateCompanyId();
+  const companyId = generateCompanyId();
   user.companyId = companyId;
 
   if (req.body.email === accountEmail) {
