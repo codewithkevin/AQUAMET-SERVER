@@ -4419,7 +4419,7 @@ winston-transport@^4.4.0, winston-transport@^4.5.0:
     readable-stream "^3.6.0"
     triple-beam "^1.3.0"
 
-winston@^3.0.0:
+winston@^3.0.0, winston@^3.9.0:
   version "3.9.0"
   resolved "https://registry.npmjs.org/winston/-/winston-3.9.0.tgz"
   integrity sha512-jW51iW/X95BCW6MMtZWr2jKQBP4hV5bIDq9QrIjfDk6Q9QuxvTKEAlpUNAzP+HYHFFCeENhph16s0zEunu4uuQ==
