@@ -18,6 +18,7 @@ import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
 import configureLogging from "./src/startup/logging.js";
 import configureWebsiteRoutes from "./src/startup/routes/Users/Website/routes.js";
 import configureViewEngine from "./src/startup/config.js";
+import prod from "./src/startup/prod.js";
 
 //Uses StartUp
 configureLogging();
