@@ -18,5 +18,5 @@ export default function connectToMongoDB() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => logger.info(`Connected to ${db}...`));
+    .then(() => logger.info(`Connected to DB...`));
 }
