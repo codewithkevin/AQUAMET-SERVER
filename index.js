@@ -2,12 +2,13 @@ import dotenv from "dotenv";
 import express from "express";
 import winston from "winston";
 import config from "config";
-import cros from "cors";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors);
 
 // Create a new Winston logger instance
 const logger = winston.createLogger({
