@@ -13,7 +13,17 @@ if (process.env.NODE_ENV !== "production")
 
 const originsWhitelist = [...extraOrigins, "http://aquamet.onrender.com"];
 
-app.use(cors({ origin: originsWhitelist, credentials: true }));
+app.use(
+  cors({
+    origin: originsWhitelist,
+    credentials: true,
+    exposedHeaders: [
+      {
+        "Access-Control-Allow-Origin": "*",
+      },
+    ],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
