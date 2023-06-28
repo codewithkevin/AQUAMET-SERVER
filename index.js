@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import winston from "winston";
 import config from "config";
+import cros from "cors";
 
 dotenv.config();
 const app = express();
