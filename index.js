@@ -6,9 +6,16 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+
+const extraOrigins = [];
+if (process.env.NODE_ENV !== "production")
+  extraOrigins.push("http://localhost:5000", "http://localhost:4000");
+
+const originsWhitelist = [...extraOrigins, "http://aquamet.onrender.com"];
+
+app.use(cors({ origin: originsWhitelist, credentials: true }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors);
 
 // Create a new Winston logger instance
 const logger = winston.createLogger({
