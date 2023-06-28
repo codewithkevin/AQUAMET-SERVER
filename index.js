@@ -15,13 +15,8 @@ const originsWhitelist = [...extraOrigins, "http://aquamet.onrender.com"];
 
 app.use(
   cors({
-    origin: originsWhitelist,
+    origin: "*",
     credentials: true,
-    exposedHeaders: [
-      {
-        "Access-Control-Allow-Origin": "*",
-      },
-    ],
   })
 );
 app.use(express.json());
