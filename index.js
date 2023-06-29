@@ -3,6 +3,7 @@ import express from "express";
 import winston from "winston";
 import config from "config";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 dotenv.config();
 const app = express();
