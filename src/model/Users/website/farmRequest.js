@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 import Joi from "joi";
 import dotenv from "dotenv";
 
-const newFarmRequest = new mongoose.Schema(
+dotenv.config();
+
+const newFarmRequestSchema = new mongoose.Schema(
   {
     fullName: {
       type: String,
-      minLength: 2,
-      maxLength: 250,
-      required: true,
-      maxlength: 50,
+      minlength: 2,
+      maxlength: 250,
       required: true,
     },
     email: {
@@ -17,20 +17,18 @@ const newFarmRequest = new mongoose.Schema(
       required: true,
       minlength: 5,
       maxlength: 255,
-      required: true,
     },
     phoneNumber: {
       type: String,
       required: true,
       minlength: 5,
       maxlength: 255,
-      required: true,
     },
     age: {
       type: Number,
+      min: 1,
+      max: 1255,
       required: true,
-      minlength: 1,
-      maxlength: 1255,
     },
     idtype: {
       type: String,
@@ -39,8 +37,8 @@ const newFarmRequest = new mongoose.Schema(
     idnumber: {
       type: String,
       required: true,
-      minLength: 5,
-      maxLength: 255,
+      minlength: 5,
+      maxlength: 255,
     },
     location: {
       type: String,
@@ -56,6 +54,7 @@ const newFarmRequest = new mongoose.Schema(
     date: {
       type: Date,
       required: true,
+      default: Date.now,
     },
     farmFacilities: {
       type: [
@@ -79,7 +78,7 @@ const newFarmRequest = new mongoose.Schema(
   { timestamps: true }
 );
 
-const FarmRequest = mongoose.model("newFarmRequest", newFarmRequest);
+const FarmRequest = mongoose.model("newFarmRequest", newFarmRequestSchema);
 
 function validateFarmRequest(user) {
   const schema = Joi.object({
