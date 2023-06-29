@@ -22,6 +22,7 @@ const demoSchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 255,
+    required: true,
   },
 });
 
