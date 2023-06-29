@@ -22,7 +22,6 @@ const demoSchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 255,
-    required: false,
   },
 });
 
@@ -33,7 +32,7 @@ function validateDemo(user) {
     firstName: Joi.string().max(50).required(),
     lastName: Joi.string().max(50).required(),
     email: Joi.string().max(255).required().email(),
-    phoneNumber: Joi.string(),
+    phoneNumber: Joi.string().max(255).optional(),
   });
 
   return schema.validate(user);
