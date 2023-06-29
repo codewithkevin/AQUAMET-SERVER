@@ -7,6 +7,10 @@ import {
   FarmRequest,
   validateFarmRequest,
 } from "../../../model/Users/website/farmRequest.js";
+import {
+  NewsRequest,
+  validateNews,
+} from "../../../model/Users/website/news.js";
 import _ from "lodash";
 
 const requestDemo = async (req, res) => {
@@ -53,4 +57,20 @@ const requestFarm = async (req, res) => {
   res.status(200).send({ request });
 };
 
-export { requestDemo, requestSmartProbe, requestFarm };
+const requestNews = async (req, res) => {
+  const { error } = validateNews(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let newsRequest = await NewsRequest.findOne({ email: req.body.email });
+  if (newsRequest) return res.status(200).send("Request already sent");
+
+  newsRequest = new NewsRequest({
+    email: req.body.email,
+  });
+
+  await newsRequest.save();
+
+  res.status(200).send({ newsRequest });
+};
+
+export { requestDemo, requestSmartProbe, requestFarm, requestNews };

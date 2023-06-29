@@ -3,6 +3,7 @@ import {
   requestDemo,
   requestSmartProbe,
   requestFarm,
+  requestNews,
 } from "../../../controllers/Users/website/requests.js";
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router.post("/smartProbe", requestSmartProbe);
 
 //Request Farm
 router.post("/farm", requestFarm);
+
+//Request News
+router.post("/news", requestNews);
 
 export default router;
