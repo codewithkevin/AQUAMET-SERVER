@@ -13,7 +13,7 @@ const requestDemo = async (req, res) => {
   const { error } = validateDemo(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let demo = await Demo.findOne({ phoneNumber: req.body.phoneNumber });
+  let demo = await Demo.findOne({ email: req.body.email });
   if (demo) return res.status(400).send({ message: "Demo already requested" });
 
   demo = new Demo(req.body);
