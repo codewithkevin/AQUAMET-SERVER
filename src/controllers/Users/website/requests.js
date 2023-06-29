@@ -11,7 +11,7 @@ import _ from "lodash";
 
 const requestDemo = async (req, res) => {
   const { error } = validateDemo(req.body);
-  if (error) return res.status(400).send({ error: error.details[0].message });
+  if (error) return res.status(400).send(error.details[0].message);
 
   let demo = await Demo.findOne({ email: req.body.email });
   if (demo) return res.status(400).send({ message: "Demo already requested" });
@@ -25,7 +25,7 @@ const requestDemo = async (req, res) => {
 
 const requestSmartProbe = async (req, res) => {
   const { error } = validateRequest(req.body);
-  if (error) return res.status(400).send({ eeror: error.details[0].message });
+  if (error) return res.status(400).send(error.details[0].message);
 
   let request = await SmartProbe.findOne({ phoneNumber: req.body.phoneNumber });
   if (request) return res.status(400).send({ message: "Request already sent" });
