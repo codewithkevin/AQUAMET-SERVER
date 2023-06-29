@@ -3,15 +3,10 @@ import Joi from "joi";
 import dotenv from "dotenv";
 
 const smartProbe = new mongoose.Schema({
-  firstName: {
+  fullName: {
     type: String,
     required: true,
     maxlength: 50,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    maxlength: 255,
   },
   email: {
     type: String,
@@ -43,8 +38,7 @@ const SmartProbe = mongoose.model("smartProbeRequest", smartProbe);
 
 function validateRequest(user) {
   const schema = Joi.object({
-    firstName: Joi.string().max(50).required(),
-    lastName: Joi.string().max(255).required(),
+    fullName: Joi.string().max(450).required(),
     email: Joi.string().min(5).max(255).required().email(),
     location: Joi.string().min(1).max(255).required(),
     numberOfProbes: Joi.number().min(1).max(1255).required(),
