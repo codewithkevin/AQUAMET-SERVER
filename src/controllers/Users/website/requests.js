@@ -62,7 +62,7 @@ const requestNews = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let newsRequest = await NewsRequest.findOne({ email: req.body.email });
-  if (newsRequest) return res.status(200).send("Request already sent");
+  if (newsRequest) return res.status(200).send("Email already Subscribed");
 
   newsRequest = new NewsRequest({
     email: req.body.email,
