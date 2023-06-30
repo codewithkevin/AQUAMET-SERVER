@@ -57,18 +57,8 @@ const newFarmRequestSchema = new mongoose.Schema(
       default: Date.now,
     },
     farmFacilities: {
-      type: [
-        {
-          type: String,
-          required: true,
-        },
-      ],
-      validate: {
-        validator: function (array) {
-          return array.length >= 1 && array.length <= 5;
-        },
-        message: "farmFacilities must have at least 1 and at most 5 elements",
-      },
+      type: [String],
+      required: true,
     },
     meetingVenue: {
       type: String,
@@ -90,7 +80,7 @@ function validateFarmRequest(user) {
     idnumber: Joi.string().min(5).max(255).required(),
     location: Joi.string().min(1).max(1255).required(),
     farmlocationInfo: Joi.string().min(1).max(7980).required(),
-    farmFacilities: Joi.array().items(Joi.string()).min(1).max(5).required(),
+    farmFacilities: Joi.array().items(Joi.string()).min(1).max(3).required(),
     meetingVenue: Joi.string().required(),
   });
 
