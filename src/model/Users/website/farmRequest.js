@@ -48,7 +48,6 @@ const newFarmRequestSchema = new mongoose.Schema(
     },
     farmlocationInfo: {
       type: String,
-      maxlength: 7980,
     },
     date: {
       type: Date,
@@ -86,7 +85,7 @@ function validateFarmRequest(user) {
     idtype: Joi.string().required(),
     idnumber: Joi.string().min(5).max(255).required(),
     location: Joi.string().min(1).max(1255).required(),
-    farmlocationInfo: Joi.string().max(7980),
+    farmlocationInfo: Joi.string(),
     farmFacilities: Joi.array().items(Joi.string()).min(1).max(3).required(),
     meetingDate: Joi.string().required(),
     meetingTime: Joi.string().required(),
