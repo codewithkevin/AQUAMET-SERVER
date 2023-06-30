@@ -60,6 +60,14 @@ const newFarmRequestSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    meetingDate: {
+      type: String,
+      required: true,
+    },
+    meetingTime: {
+      type: String,
+      required: true,
+    },
     meetingVenue: {
       type: String,
       required: true,
@@ -81,6 +89,8 @@ function validateFarmRequest(user) {
     location: Joi.string().min(1).max(1255).required(),
     farmlocationInfo: Joi.string().min(1).max(7980).required(),
     farmFacilities: Joi.array().items(Joi.string()).min(1).max(3).required(),
+    meetingDate: Joi.string().required(),
+    meetingTime: Joi.string().required(),
     meetingVenue: Joi.string().required(),
   });
 
