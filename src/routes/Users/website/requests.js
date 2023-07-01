@@ -4,6 +4,7 @@ import {
   requestSmartProbe,
   requestFarm,
   requestNews,
+  sendConcern,
 } from "../../../controllers/Users/website/requests.js";
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.post("/farm", requestFarm);
 
 //Request News
 router.post("/news", requestNews);
+
+//Send Concern
+router.post("/concern", sendConcern);
 
 export default router;

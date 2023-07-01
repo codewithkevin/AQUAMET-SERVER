@@ -11,6 +11,10 @@ import {
   NewsRequest,
   validateNews,
 } from "../../../model/Users/website/news.js";
+import {
+  Notification,
+  validateNotice,
+} from "../../../model/Users/website/notification.js";
 import _ from "lodash";
 
 const requestDemo = async (req, res) => {
@@ -73,4 +77,21 @@ const requestNews = async (req, res) => {
   res.status(200).send({ newsRequest });
 };
 
-export { requestDemo, requestSmartProbe, requestFarm, requestNews };
+const sendConcern = async (req, res) => {
+  const { error } = validateNotice(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const notification = new Notification(req.body);
+
+  await notification.save();
+
+  res.status(200).send({ notification });
+};
+
+export {
+  requestDemo,
+  requestSmartProbe,
+  requestFarm,
+  requestNews,
+  sendConcern,
+};
