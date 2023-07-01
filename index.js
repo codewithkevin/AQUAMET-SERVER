@@ -36,8 +36,6 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
-
-
 //Imports StartUp
 import connectToMongoDB from "./src/startup/connectDB.js";
 import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
@@ -54,10 +52,12 @@ connectToMongoDB();
 configureViewEngine();
 prod(app);
 
-//Middleware 
+//Middleware
 import cookiesMiddleware from "./src/middleware/cookies.js";
+import policyMiddleware from "./src/middleware/policy.Middleware.js";
 
 app.use(cookiesMiddleware);
+app.use(policyMiddleware);
 
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () =>
