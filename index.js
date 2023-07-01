@@ -8,46 +8,12 @@ import bodyParser from "body-parser";
 dotenv.config();
 const app = express();
 
-// const extraOrigins = [];
-// if (process.env.NODE_ENV !== "production")
-//   extraOrigins.push("http://localhost:5000", "http://localhost:4000");
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
 
-// const originsWhitelist = [...extraOrigins, "http://aquamet.onrender.com"];
-
-// app.use(
-//   cors({
-//     origin: "*",
-//     credentials: true,
-//   })
-// );
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// Middleware to enable CORS
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   next();
-// });
-
-const extraOrigins = [];
-if (process.env.NODE_ENV !== "production")
-  extraOrigins.push("http://localhost:5000", "http://localhost:3000");
-
-const originsWhitelist = [
-  ...extraOrigins,
-  "https://aquamet-website.vercel.app/",
-  "https://aquamet-website.vercel.app",
-];
-
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// );
-app.use(cors({ origin: originsWhitelist, credentials: true }));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.json());
 
