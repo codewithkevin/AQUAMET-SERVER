@@ -33,7 +33,7 @@ const app = express();
 
 const extraOrigins = [];
 if (process.env.NODE_ENV !== "production")
-  extraOrigins.push("http://localhost:5000", "http://localhost:4000");
+  extraOrigins.push("http://localhost:5000", "http://localhost:3000");
 
 const originsWhitelist = [
   ...extraOrigins,
