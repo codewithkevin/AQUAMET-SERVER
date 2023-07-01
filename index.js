@@ -31,12 +31,23 @@ const app = express();
 //   next();
 // });
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+const extraOrigins = [];
+if (process.env.NODE_ENV !== "production")
+  extraOrigins.push("http://localhost:5000", "http://localhost:4000");
+
+const originsWhitelist = [
+  ...extraOrigins,
+  "https://aquamet-website.vercel.app/",
+  "https://aquamet-website.vercel.app",
+];
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   })
+// );
+app.use(cors({ origin: originsWhitelist, credentials: true }));
 app.use(express.json());
 app.use(bodyParser.json());
 
