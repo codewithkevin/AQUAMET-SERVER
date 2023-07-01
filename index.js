@@ -11,6 +11,11 @@ const app = express();
 const corsOptions = {
   origin: true,
   credentials: true,
+  // Set the desired cookie settings
+  cookie: {
+    secure: true, // Set to true if using HTTPS
+    sameSite: "none",
+  },
 };
 
 app.use(cors(corsOptions));
@@ -31,6 +36,8 @@ const logger = winston.createLogger({
   transports: [new winston.transports.Console()],
 });
 
+
+
 //Imports StartUp
 import connectToMongoDB from "./src/startup/connectDB.js";
 import configureAdminRoutes from "./src/startup/routes/Admin/routes.js";
@@ -46,6 +53,11 @@ configureWebsiteRoutes(app);
 connectToMongoDB();
 configureViewEngine();
 prod(app);
+
+//Middleware 
+import cookiesMiddleware from "./src/middleware/cookies.js";
+
+app.use(cookiesMiddleware);
 
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () =>
